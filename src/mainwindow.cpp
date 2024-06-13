@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_originImage = std::make_shared<QImage>();
     m_scaledImage = std::make_shared<QImage>();
     m_pixelImage = std::make_shared<QImage>();
+    m_resImage = std::make_shared<QImage>();
 
     m_ppuTimer = std::make_shared<QTimer>();
     m_ppuTimer->setSingleShot(true);
@@ -28,15 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_scaledTimer.get(), &QTimer::timeout,
             this, &MainWindow::sltOnScaledTimerOut);
 
-    ui->actionSave->setEnabled(false);
+    m_removeBackgroundTimer = std::make_shared<QTimer>();
+    m_removeBackgroundTimer->setSingleShot(true);
+    connect(m_removeBackgroundTimer.get(), &QTimer::timeout,
+            this, &MainWindow::sltOnRemoveBackgroundTimerOut);
 
-    ui->sliderPPU->setEnabled(false);
-    ui->spinBoxPPU->setEnabled(false);
-
-    ui->spinBoxWidth->setEnabled(false);
-    ui->spinBoxHeight->setEnabled(false);
-    ui->checkBoxLockAspectRatio->setEnabled(false);
-    ui->btnResetSize->setEnabled(false);
+    toolSwitchUIState(false);
 
     toolSetStyleSheetFile(":/style.qss");
 }
@@ -59,7 +57,6 @@ std::shared_ptr<QImage> MainWindow::convertToPixelImg(std::shared_ptr<QImage> or
     }
 
     std::shared_ptr<QImage> pixeImage = std::make_shared<QImage>(*originImge); // 创建原始图像的副本
-
     // 迭代像素块
     int blockSize = ppu;
     for (int y = 0; y < pixeImage->height(); y += blockSize)
@@ -90,9 +87,9 @@ std::shared_ptr<QImage> MainWindow::convertToPixelImg(std::shared_ptr<QImage> or
             QColor avgColor(avgRed, avgGreen, avgBlue);
 
             // 设置块内所有像素为平均颜色
-            for (int j = y; j < y + blockSize && j < m_scaledImage->height(); ++j)
+            for (int j = y; j < y + blockSize && j < pixeImage->height(); ++j)
             {
-                for (int i = x; i < x + blockSize && i < m_scaledImage->width(); ++i)
+                for (int i = x; i < x + blockSize && i < pixeImage->width(); ++i)
                 {
                     pixeImage->setPixel(i, j, avgColor.rgb());
                 }
@@ -160,6 +157,30 @@ double MainWindow::calculatePSNR(const QImage &originalImage, const QImage &proc
 
 }
 
+std::shared_ptr<QImage> MainWindow::removeBackground(std::shared_ptr<QImage> originImge,
+                                                     const QColor &bgColor,
+                                                     int tolerance)
+{
+    std::shared_ptr<QImage> result = std::make_shared<QImage>(
+                originImge->convertToFormat(QImage::Format_ARGB32));
+    for (int y = 0; y < result->height(); ++y)
+    {
+        for (int x = 0; x < result->width(); ++x)
+        {
+            QColor pixelColor = result->pixelColor(x, y);
+            // 判断当前像素是否接近背景颜色
+            if (qAbs(pixelColor.red() - bgColor.red()) < tolerance &&
+                    qAbs(pixelColor.green() - bgColor.green()) < tolerance &&
+                    qAbs(pixelColor.blue() - bgColor.blue()) < tolerance)
+            {
+                // 将背景像素设置为透明
+                result->setPixelColor(x, y, QColor(0, 0, 0, 0));
+            }
+        }
+    }
+    return result;
+}
+
 void MainWindow::toolSetStyleSheetFile(const QString &file)
 {
     QFile styleSheet(file);
@@ -173,6 +194,33 @@ void MainWindow::toolSetStyleSheetFile(const QString &file)
     styleSheet.close();
 }
 
+void MainWindow::toolSwitchUIState(bool isEnabled)
+{
+    ui->actionSave->setEnabled(isEnabled);
+
+    ui->sliderPPU->setEnabled(isEnabled);
+    ui->sliderPPU->setValue(ui->sliderPPU->minimum());
+    ui->spinBoxPPU->setEnabled(isEnabled);
+    ui->spinBoxPPU->setValue(ui->spinBoxPPU->minimum());
+
+    ui->spinBoxWidth->setEnabled(isEnabled);
+    if (m_originImage)
+    {
+        ui->spinBoxWidth->setValue(m_originImage->width());
+    }
+    ui->spinBoxHeight->setEnabled(isEnabled);
+    if (m_originImage)
+    {
+        ui->spinBoxHeight->setValue(m_originImage->height());
+    }
+    ui->checkBoxLockAspectRatio->setEnabled(isEnabled);
+    ui->btnResetSize->setEnabled(isEnabled);
+
+    ui->spinBoxTolerance->setEnabled(isEnabled);
+    ui->spinBoxTolerance->setValue(ui->spinBoxTolerance->minimum());
+    ui->btnResetBackground->setEnabled(isEnabled);
+}
+
 void MainWindow::sltOnPpuTimerOut()
 {
     std::shared_ptr<QImage> pixeImage = convertToPixelImg(m_originImage, ui->spinBoxPPU->value());
@@ -182,7 +230,12 @@ void MainWindow::sltOnPpuTimerOut()
     }
 
     m_pixelImage = pixeImage;
-    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*m_pixelImage));
+    m_resImage = pixeImage;
+    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*pixeImage));
+
+    ui->spinBoxWidth->setValue(pixeImage->width());
+    ui->spinBoxHeight->setValue(pixeImage->height());
+    ui->spinBoxTolerance->setValue(ui->spinBoxTolerance->minimum());
 }
 
 void MainWindow::sltOnScaledTimerOut()
@@ -196,7 +249,36 @@ void MainWindow::sltOnScaledTimerOut()
     }
 
     m_scaledImage = scaledImage;
-    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*m_scaledImage));
+    m_resImage = scaledImage;
+    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*scaledImage));
+    ui->spinBoxTolerance->setValue(ui->spinBoxTolerance->minimum());
+}
+
+void MainWindow::sltOnRemoveBackgroundTimerOut()
+{
+    std::shared_ptr<QImage> scaledImage = m_scaledImage;
+    if (scaledImage->size() != m_pixelImage->size())
+    {
+        scaledImage = scaledImg(m_pixelImage,
+                                ui->spinBoxWidth->value(),
+                                ui->spinBoxHeight->value());
+        if (!scaledImage)
+        {
+            return;
+        }
+    }
+
+    std::shared_ptr<QImage> removeImg = removeBackground(scaledImage,
+                                                    QColor(255, 255, 255),
+                                                    ui->spinBoxTolerance->value());
+    if (!removeImg)
+    {
+        return;
+    }
+
+    m_removeImage = m_resImage;
+    m_resImage = removeImg;
+    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*removeImg));
 }
 
 void MainWindow::on_spinBoxPPU_valueChanged(int arg1)
@@ -205,17 +287,11 @@ void MainWindow::on_spinBoxPPU_valueChanged(int arg1)
     m_ppuTimer->start(PPU_DELAY_TIME);
 }
 
-void MainWindow::on_sliderPPU_sliderMoved(int position)
-{
-    ui->spinBoxPPU->setValue(position);
-    m_ppuTimer->start(PPU_DELAY_TIME);
-}
-
 void MainWindow::on_spinBoxHeight_valueChanged(int arg1)
 {
     if (ui->checkBoxLockAspectRatio->isChecked())
     {
-        double aspectRatio = static_cast<double>(m_pixelImage->width()) / m_pixelImage->height();
+        double aspectRatio = static_cast<double>(m_originImage->width()) / m_originImage->height();
         int newWidth = static_cast<int>(arg1 * aspectRatio);
         ui->spinBoxWidth->setValue(newWidth);
     }
@@ -227,7 +303,7 @@ void MainWindow::on_spinBoxWidth_valueChanged(int arg1)
 {
     if (ui->checkBoxLockAspectRatio->isChecked())
     {
-        double aspectRatio = static_cast<double>(m_pixelImage->height()) / m_pixelImage->width();
+        double aspectRatio = static_cast<double>(m_originImage->height()) / m_originImage->width();
         int newHeight = static_cast<int>(arg1 * aspectRatio);
         ui->spinBoxHeight->setValue(newHeight);
     }
@@ -256,21 +332,10 @@ void MainWindow::on_actionBrowse_triggered()
 
     m_pixelImage = std::make_shared<QImage>(*m_originImage);
     m_scaledImage = std::make_shared<QImage>(*m_pixelImage);
-    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*m_scaledImage));
+    m_resImage = std::make_shared<QImage>(*m_originImage);
+    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*m_resImage));
 
-    ui->actionSave->setEnabled(true);
-
-    ui->sliderPPU->setEnabled(true);
-    ui->sliderPPU->setValue(ui->sliderPPU->minimum());
-    ui->spinBoxPPU->setEnabled(true);
-    ui->spinBoxPPU->setValue(ui->spinBoxPPU->minimum());
-
-    ui->spinBoxWidth->setEnabled(true);
-    ui->spinBoxWidth->setValue(m_originImage->width());
-    ui->spinBoxHeight->setEnabled(true);
-    ui->spinBoxHeight->setValue(m_originImage->height());
-    ui->checkBoxLockAspectRatio->setEnabled(true);
-    ui->btnResetSize->setEnabled(true);
+    toolSwitchUIState(true);
 
     ui->statusbar->showMessage(QString::fromLocal8Bit("原始图像尺寸：%1 * %2").arg(m_originImage->width())
                                .arg(m_originImage->height()));
@@ -287,7 +352,7 @@ void MainWindow::on_actionSave_triggered()
         return;
     }
 
-    if (!m_scaledImage || !m_scaledImage->save(fileName))
+    if (!m_resImage || !m_resImage->save(fileName))
     {
         return;
     }
@@ -297,16 +362,24 @@ void MainWindow::on_btnResetSize_clicked(bool checked)
 {
     Q_UNUSED(checked);
 
-    std::shared_ptr<QImage> scaledImage = scaledImg(m_pixelImage,
-                                                    m_pixelImage->width(),
-                                                    m_pixelImage->height());
-    if (!scaledImage)
-    {
-        return;
-    }
+    ui->spinBoxWidth->setValue(m_originImage->width());
+    ui->spinBoxHeight->setValue(m_originImage->height());
+}
 
-    m_scaledImage = scaledImage;
-    ui->labelScaledImg->setPixmap(QPixmap::fromImage(*m_scaledImage));
-    ui->spinBoxWidth->setValue(m_pixelImage->width());
-    ui->spinBoxHeight->setValue(m_pixelImage->height());
+void MainWindow::on_btnResetBackground_clicked()
+{
+    ui->spinBoxTolerance->setValue(ui->spinBoxTolerance->minimum());
+}
+
+void MainWindow::on_spinBoxTolerance_valueChanged(int arg1)
+{
+    Q_UNUSED(arg1);
+
+    m_removeBackgroundTimer->start(REMOVE_BACKGROUND_DELAY_TIME);
+}
+
+void MainWindow::on_sliderPPU_valueChanged(int value)
+{
+    ui->spinBoxPPU->setValue(value);
+    m_ppuTimer->start(PPU_DELAY_TIME);
 }

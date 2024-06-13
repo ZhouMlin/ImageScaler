@@ -14,7 +14,8 @@
    <string>Image Scaler</string>
   </property>
   <property name="windowIcon">
-   <iconset theme=":/images/window_icon.png"/>
+   <iconset theme=":/images/window_icon.png">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -34,84 +35,9 @@ border: 1px solid #cccccc;
       <property name="frameShape">
        <enum>QFrame::Box</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayoutConfiguration" columnstretch="0,0,0,0,0,0,0,0" columnminimumwidth="0,0,0,1,0,1,0,0">
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelPathsuffix">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>图片路径</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="labelDelimiter1">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="labelDelimiter3">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLabel" name="labelWidth">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: normal;
-font-size: 12px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>宽度:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QSpinBox" name="spinBoxWidth">
+      <layout class="QGridLayout" name="gridLayoutConfiguration" columnstretch="0,0,0,0,1,0,1,0,0,0,0">
+       <item row="2" column="3" colspan="7">
+        <widget class="QSlider" name="sliderPPU">
          <property name="styleSheet">
           <string notr="true">border: 1px solid #cccccc;
 border-radius: 5px;
@@ -124,44 +50,47 @@ min-height: 25px;</string>
           <number>1</number>
          </property>
          <property name="maximum">
-          <number>999999999</number>
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="4" column="4">
-        <widget class="QLabel" name="labelHeight">
+       <item row="6" column="10">
+        <widget class="QPushButton" name="btnResetBackground">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
          <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: normal;
-font-size: 12px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
+          <string notr="true">QPushButton#btnResetBackground {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 25px;
+	min-width: 20px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnResetBackground::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnResetBackground::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
          </property>
          <property name="text">
-          <string>高度:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="6">
-        <widget class="QCheckBox" name="checkBoxLockAspectRatio">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: normal;
-font-size: 12px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>锁定纵横比</string>
+          <string>恢复</string>
          </property>
         </widget>
        </item>
@@ -182,6 +111,62 @@ border: 0px;</string>
          </property>
         </widget>
        </item>
+       <item row="0" column="3" colspan="8">
+        <widget class="QLabel" name="labelPath">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="labelDelimiter4">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QSpinBox" name="spinBoxWidth">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>999999999</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="labelSliderSuffix">
          <property name="styleSheet">
@@ -199,8 +184,45 @@ border: 0px;</string>
          </property>
         </widget>
        </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="labelRemoveBackground">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>去除背景</string>
+         </property>
+        </widget>
+       </item>
        <item row="4" column="5">
-        <widget class="QSpinBox" name="spinBoxHeight">
+        <widget class="QLabel" name="labelHeight">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>高度:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="4" colspan="6">
+        <widget class="QSpinBox" name="spinBoxTolerance">
          <property name="styleSheet">
           <string notr="true">border: 1px solid #cccccc;
 border-radius: 5px;
@@ -210,34 +232,35 @@ min-width: 100px;
 min-height: 25px;</string>
          </property>
          <property name="minimum">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="maximum">
-          <number>999999999</number>
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>0</number>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="labelDelimiter2">
+       <item row="5" column="0" colspan="11">
+        <widget class="Line" name="line3">
          <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-border: 0px;</string>
+          <string notr="true">background-color: #cccccc;
+border: none;</string>
          </property>
-         <property name="text">
-          <string>:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="4" column="7">
+       <item row="4" column="10">
         <widget class="QPushButton" name="btnResetSize">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton#btnResetSize {
 	background-color: #FFFFFF;
@@ -263,27 +286,44 @@ QPushButton#btnResetSize::pressed {
 }</string>
          </property>
          <property name="text">
-          <string>恢复原始大小</string>
+          <string>恢复</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2" colspan="6">
-        <widget class="QLabel" name="labelPath">
+       <item row="4" column="3">
+        <widget class="QLabel" name="labelWidth">
          <property name="styleSheet">
-          <string notr="true">border: 1px solid #cccccc;
-border-radius: 5px;
+          <string notr="true">background-color: #FFFFFF;
 color: #3F88CF;
 font-family: Microsoft YaHei;
-min-width: 100px;
-min-height: 25px;</string>
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
          </property>
          <property name="text">
-          <string>path</string>
+          <string>宽度:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="2" column="7">
+       <item row="2" column="10">
         <widget class="QSpinBox" name="spinBoxPPU">
+         <property name="minimumSize">
+          <size>
+           <width>102</width>
+           <height>27</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
          <property name="styleSheet">
           <string notr="true">border: 1px solid #cccccc;
 border-radius: 5px;
@@ -293,35 +333,17 @@ min-width: 100px;
 min-height: 25px;</string>
          </property>
          <property name="minimum">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="maximum">
           <number>100</number>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="2" colspan="5">
-        <widget class="QSlider" name="sliderPPU">
-         <property name="styleSheet">
-          <string notr="true">border: 1px solid #cccccc;
-border-radius: 5px;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-min-width: 100px;
-min-height: 25px;</string>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+         <property name="value">
+          <number>0</number>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="8">
+       <item row="3" column="0" colspan="11">
         <widget class="Line" name="line2">
          <property name="styleSheet">
           <string notr="true">background-color: #cccccc;
@@ -332,7 +354,122 @@ border: none;</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="8">
+       <item row="6" column="2" colspan="2">
+        <widget class="QLabel" name="labelTolerance">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>容差值:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="labelDelimiter3">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="labelDelimiter2">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="6">
+        <widget class="QSpinBox" name="spinBoxHeight">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>999999999</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="labelDelimiter1">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelPathsuffix">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>图片路径</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="11">
         <widget class="Line" name="line1">
          <property name="styleSheet">
           <string notr="true">background-color: #cccccc;
@@ -340,6 +477,35 @@ border: none;</string>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="8" colspan="2">
+        <widget class="QCheckBox" name="checkBoxLockAspectRatio">
+         <property name="minimumSize">
+          <size>
+           <width>30</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>锁定纵横比</string>
          </property>
         </widget>
        </item>
@@ -351,8 +517,8 @@ border: none;</string>
       <item>
        <widget class="QScrollArea" name="scrollAreaOriginImg">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border: 1px solid #cccccc;</string>
+         <string notr="true">background-color: #cccccc;
+border: 1px solid #3F88CF;</string>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
@@ -363,7 +529,7 @@ border: 1px solid #cccccc;</string>
            <x>0</x>
            <y>0</y>
            <width>385</width>
-           <height>389</height>
+           <height>347</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1">
@@ -381,8 +547,8 @@ border: 1px solid #cccccc;</string>
       <item>
        <widget class="QScrollArea" name="scrollAreaScaledImg">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border: 1px solid #cccccc;
+         <string notr="true">background-color: #cccccc;
+border: 1px solid #3F88CF;
 </string>
         </property>
         <property name="widgetResizable">
@@ -394,7 +560,7 @@ border: 1px solid #cccccc;
            <x>0</x>
            <y>0</y>
            <width>385</width>
-           <height>389</height>
+           <height>347</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
