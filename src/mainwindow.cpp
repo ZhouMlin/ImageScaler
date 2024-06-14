@@ -102,7 +102,7 @@ std::shared_ptr<QImage> MainWindow::convertToPixelImg(std::shared_ptr<QImage> or
 
 std::shared_ptr<QImage> MainWindow::scaledImg(std::shared_ptr<QImage> originImge, int width, int height)
 {
-    if (!originImge)
+    if (!originImge || width <=0 || height <= 0)
     {
         return nullptr;
     }
@@ -245,6 +245,7 @@ void MainWindow::sltOnScaledTimerOut()
                                                     ui->spinBoxHeight->value());
     if (!scaledImage)
     {
+        ui->labelScaledImg->clear();
         return;
     }
 
@@ -289,11 +290,17 @@ void MainWindow::on_spinBoxPPU_valueChanged(int arg1)
 
 void MainWindow::on_spinBoxHeight_valueChanged(int arg1)
 {
+    if (m_scaleUpdating)
+    {
+        return;
+    }
+
     if (ui->checkBoxLockAspectRatio->isChecked())
     {
-        double aspectRatio = static_cast<double>(m_originImage->width()) / m_originImage->height();
-        int newWidth = static_cast<int>(arg1 * aspectRatio);
+        m_scaleUpdating = true;
+        int newWidth = static_cast<int>(arg1 * m_scaleRatioWToH);
         ui->spinBoxWidth->setValue(newWidth);
+        m_scaleUpdating = false;
     }
 
     m_scaledTimer->start(SCALED_DELAY_TIME);
@@ -301,11 +308,17 @@ void MainWindow::on_spinBoxHeight_valueChanged(int arg1)
 
 void MainWindow::on_spinBoxWidth_valueChanged(int arg1)
 {
+    if (m_scaleUpdating)
+    {
+        return;
+    }
+
     if (ui->checkBoxLockAspectRatio->isChecked())
     {
-        double aspectRatio = static_cast<double>(m_originImage->height()) / m_originImage->width();
-        int newHeight = static_cast<int>(arg1 * aspectRatio);
+        m_scaleUpdating = true;
+        int newHeight = static_cast<int>(arg1 * m_scaleRatioHToW);
         ui->spinBoxHeight->setValue(newHeight);
+        m_scaleUpdating = false;
     }
 
     m_scaledTimer->start(SCALED_DELAY_TIME);
@@ -335,10 +348,19 @@ void MainWindow::on_actionBrowse_triggered()
     m_resImage = std::make_shared<QImage>(*m_originImage);
     ui->labelScaledImg->setPixmap(QPixmap::fromImage(*m_resImage));
 
+    m_scaleRatioWToH = m_originImage->width() * 1.0  / m_originImage->height() * 1.0;
+    m_scaleRatioHToW = m_originImage->height() * 1.0  / m_originImage->width() * 1.0;
+
     toolSwitchUIState(true);
 
-    ui->statusbar->showMessage(QString::fromLocal8Bit("原始图像尺寸：%1 * %2").arg(m_originImage->width())
-                               .arg(m_originImage->height()));
+    if (!m_statusLabel)
+    {
+        m_statusLabel = new QLabel(ui->statusbar);
+        m_statusLabel->setObjectName("statusLabel");
+        ui->statusbar->addPermanentWidget(m_statusLabel);
+    }
+    m_statusLabel->setText(QString::fromLocal8Bit("原始图像尺寸：%1 * %2").arg(m_originImage->width())
+                           .arg(m_originImage->height()));
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -382,4 +404,22 @@ void MainWindow::on_sliderPPU_valueChanged(int value)
 {
     ui->spinBoxPPU->setValue(value);
     m_ppuTimer->start(PPU_DELAY_TIME);
+}
+
+void MainWindow::on_checkBoxLockAspectRatio_toggled(bool checked)
+{
+    Q_UNUSED(checked);
+
+//    if (checked)
+//    {
+//        int minHeight = qMax(static_cast<int>(m_scaleRatioHToW), 0);
+//        int minWidth = qMax(static_cast<int>(m_scaleRatioWToH), 0);
+//        ui->spinBoxWidth->setMinimum(minHeight);
+//        ui->spinBoxHeight->setMinimum(minWidth);
+//    }
+//    else
+//    {
+//        ui->spinBoxWidth->setMinimum(0);
+//        ui->spinBoxHeight->setMinimum(0);
+//    }
 }

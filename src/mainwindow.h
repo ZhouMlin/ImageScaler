@@ -7,6 +7,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class QLabel;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,6 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QLabel *m_statusLabel = nullptr;
     std::shared_ptr<QImage> m_originImage = nullptr;
     std::shared_ptr<QImage> m_pixelImage = nullptr;
     std::shared_ptr<QImage> m_scaledImage = nullptr;
@@ -30,6 +32,9 @@ private:
 
     std::shared_ptr<QTimer> m_scaledTimer = nullptr;
     const int SCALED_DELAY_TIME = 100;
+    double m_scaleRatioWToH = 0.0;
+    double m_scaleRatioHToW = 0.0;
+    bool m_scaleUpdating = false;
 
     std::shared_ptr<QTimer> m_removeBackgroundTimer = nullptr;
     const int REMOVE_BACKGROUND_DELAY_TIME = 100;
@@ -58,5 +63,6 @@ private slots:
     void on_btnResetBackground_clicked();
     void on_spinBoxTolerance_valueChanged(int arg1);
     void on_sliderPPU_valueChanged(int value);
+    void on_checkBoxLockAspectRatio_toggled(bool checked);
 };
 #endif // MAINWINDOW_H
