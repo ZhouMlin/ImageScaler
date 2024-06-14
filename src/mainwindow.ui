@@ -35,97 +35,7 @@ border: 1px solid #cccccc;
       <property name="frameShape">
        <enum>QFrame::Box</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayoutConfiguration" columnstretch="0,0,0,0,1,0,1,0,0,0,0">
-       <item row="2" column="3" colspan="7">
-        <widget class="QSlider" name="sliderPPU">
-         <property name="styleSheet">
-          <string notr="true">border: 1px solid #cccccc;
-border-radius: 5px;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-min-width: 100px;
-min-height: 25px;</string>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="10">
-        <widget class="QPushButton" name="btnResetBackground">
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton#btnResetBackground {
-	background-color: #FFFFFF;
-	color: #3F88CF;
-	font-family: Microsoft YaHei;
-	font-weight: normal;
-	font-size: 12px;
-	min-height: 25px;
-	min-width: 20px;
-	border: 1px solid #3F88CF;
-	border-radius: 5px;
-}
-
-QPushButton#btnResetBackground::disabled {
-	background-color: #FFFFFF;
-	color: #cccccc;
-	border: 1px solid #cccccc;
-}
-
-QPushButton#btnResetBackground::pressed {
-	background-color: #3F88CF;
-	color: #FFFFFF;
-}</string>
-         </property>
-         <property name="text">
-          <string>恢复</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="labelImgSize">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>图像尺寸（分辨率)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3" colspan="8">
-        <widget class="QLabel" name="labelPath">
-         <property name="styleSheet">
-          <string notr="true">border: 1px solid #cccccc;
-border-radius: 5px;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-min-width: 100px;
-min-height: 25px;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
+      <layout class="QGridLayout" name="gridLayoutConfiguration" columnstretch="0,0,0,1,0,1,0,1">
        <item row="6" column="1">
         <widget class="QLabel" name="labelDelimiter4">
          <property name="styleSheet">
@@ -146,7 +56,113 @@ border: 0px;</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="4">
+       <item row="4" column="5">
+        <widget class="QSpinBox" name="spinBoxHeight">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>999999999</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="labelWidth">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>宽度:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="6">
+        <widget class="QCheckBox" name="checkBoxRemoveByHandCheckbox">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>手动去除</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="8">
+        <widget class="Line" name="line1">
+         <property name="styleSheet">
+          <string notr="true">background-color: #cccccc;
+border: none;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelPathsuffix">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>图片路径</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="labelRemoveBackground">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>去除背景</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="3">
         <widget class="QSpinBox" name="spinBoxWidth">
          <property name="styleSheet">
           <string notr="true">border: 1px solid #cccccc;
@@ -187,8 +203,19 @@ border: 0px;</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="labelRemoveBackground">
+       <item row="5" column="0" colspan="8">
+        <widget class="Line" name="line3">
+         <property name="styleSheet">
+          <string notr="true">background-color: #cccccc;
+border: none;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="labelDelimiter1">
          <property name="styleSheet">
           <string notr="true">background-color: #FFFFFF;
 color: #3F88CF;
@@ -196,35 +223,17 @@ font-family: Microsoft YaHei;
 font-weight: bold;
 font-size: 14px;
 min-height: 25px;
-min-width: 30px;
 border: 0px;</string>
          </property>
          <property name="text">
-          <string>去除背景</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="5">
-        <widget class="QLabel" name="labelHeight">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: normal;
-font-size: 12px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>高度:</string>
+          <string>:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="6" column="4" colspan="6">
+       <item row="6" column="3" colspan="3">
         <widget class="QSpinBox" name="spinBoxTolerance">
          <property name="styleSheet">
           <string notr="true">border: 1px solid #cccccc;
@@ -245,119 +254,7 @@ min-height: 25px;</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0" colspan="11">
-        <widget class="Line" name="line3">
-         <property name="styleSheet">
-          <string notr="true">background-color: #cccccc;
-border: none;</string>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="10">
-        <widget class="QPushButton" name="btnResetSize">
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton#btnResetSize {
-	background-color: #FFFFFF;
-	color: #3F88CF;
-	font-family: Microsoft YaHei;
-	font-weight: normal;
-	font-size: 12px;
-	min-height: 25px;
-	min-width: 20px;
-	border: 1px solid #3F88CF;
-	border-radius: 5px;
-}
-
-QPushButton#btnResetSize::disabled {
-	background-color: #FFFFFF;
-	color: #cccccc;
-	border: 1px solid #cccccc;
-}
-
-QPushButton#btnResetSize::pressed {
-	background-color: #3F88CF;
-	color: #FFFFFF;
-}</string>
-         </property>
-         <property name="text">
-          <string>恢复</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QLabel" name="labelWidth">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: normal;
-font-size: 12px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>宽度:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="10">
-        <widget class="QSpinBox" name="spinBoxPPU">
-         <property name="minimumSize">
-          <size>
-           <width>102</width>
-           <height>27</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border: 1px solid #cccccc;
-border-radius: 5px;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-min-width: 100px;
-min-height: 25px;</string>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="11">
-        <widget class="Line" name="line2">
-         <property name="styleSheet">
-          <string notr="true">background-color: #cccccc;
-border: none;</string>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2" colspan="2">
+       <item row="6" column="2">
         <widget class="QLabel" name="labelTolerance">
          <property name="styleSheet">
           <string notr="true">background-color: #FFFFFF;
@@ -396,6 +293,80 @@ border: 0px;</string>
          </property>
         </widget>
        </item>
+       <item row="2" column="5">
+        <widget class="QSpinBox" name="spinBoxPPU">
+         <property name="minimumSize">
+          <size>
+           <width>102</width>
+           <height>27</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QLabel" name="labelHeight">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>高度:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QSlider" name="sliderPPU">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="1">
         <widget class="QLabel" name="labelDelimiter2">
          <property name="styleSheet">
@@ -416,77 +387,6 @@ border: 0px;</string>
         </widget>
        </item>
        <item row="4" column="6">
-        <widget class="QSpinBox" name="spinBoxHeight">
-         <property name="styleSheet">
-          <string notr="true">border: 1px solid #cccccc;
-border-radius: 5px;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-min-width: 100px;
-min-height: 25px;</string>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>999999999</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="labelDelimiter1">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelPathsuffix">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFFF;
-color: #3F88CF;
-font-family: Microsoft YaHei;
-font-weight: bold;
-font-size: 14px;
-min-height: 25px;
-min-width: 30px;
-border: 0px;</string>
-         </property>
-         <property name="text">
-          <string>图片路径</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="11">
-        <widget class="Line" name="line1">
-         <property name="styleSheet">
-          <string notr="true">background-color: #cccccc;
-border: none;</string>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="8" colspan="2">
         <widget class="QCheckBox" name="checkBoxLockAspectRatio">
          <property name="minimumSize">
           <size>
@@ -515,13 +415,315 @@ border: 0px;</string>
          </property>
         </widget>
        </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="labelImgSize">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>图像尺寸（分辨率)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="7">
+        <widget class="QPushButton" name="btnResetBackground">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#btnResetBackground {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 25px;
+	min-width: 20px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnResetBackground::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnResetBackground::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
+         </property>
+         <property name="text">
+          <string>恢复</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="7">
+        <widget class="QPushButton" name="btnResetSize">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#btnResetSize {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 25px;
+	min-width: 20px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnResetSize::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnResetSize::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
+         </property>
+         <property name="text">
+          <string>恢复</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="8">
+        <widget class="Line" name="line2">
+         <property name="styleSheet">
+          <string notr="true">background-color: #cccccc;
+border: none;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="labelPath">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid #cccccc;
+border-radius: 5px;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+min-width: 100px;
+min-height: 25px;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="gridFrameHandRemove">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid #cccccc;
+</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0,0">
+       <item row="2" column="1">
+        <widget class="QRadioButton" name="radioBtnEraser">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 20px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>橡皮</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupHandRemove</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="6">
+        <widget class="Line" name="line4">
+         <property name="styleSheet">
+          <string notr="true">background-color: #cccccc;
+border: none;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QPushButton" name="btnResetHandRemove">
+         <property name="styleSheet">
+          <string notr="true">QPushButton#btnResetHandRemove {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 20px;
+	min-width: 80px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnResetHandRemove::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnResetHandRemove::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
+         </property>
+         <property name="text">
+          <string>撤销</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="btnSaveHandRemove">
+         <property name="styleSheet">
+          <string notr="true">QPushButton#btnSaveHandRemove {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 20px;
+	min-width: 80px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnSaveHandRemove::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnSaveHandRemove::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
+         </property>
+         <property name="text">
+          <string>保存</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelHandRemoveTittle">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: bold;
+font-size: 14px;
+min-height: 25px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>背景去除编辑器</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <spacer name="horizontalSpacer6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="5">
+        <widget class="QPushButton" name="btnQuitHandRemove">
+         <property name="styleSheet">
+          <string notr="true">QPushButton#btnQuitHandRemove {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 20px;
+	min-width: 80px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnQuitHandRemove::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnQuitHandRemove::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
+         </property>
+         <property name="text">
+          <string>退出编辑器</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QRadioButton" name="radioBtnPen">
+         <property name="styleSheet">
+          <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 20px;
+min-width: 30px;
+border: 0px;</string>
+         </property>
+         <property name="text">
+          <string>画笔</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupHandRemove</string>
+         </attribute>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayoutScrollArea" columnstretch="1,1,1,1,1,1">
-      <item row="3" column="2">
-       <spacer name="horizontalSpacer3">
+      <item row="3" column="5">
+       <spacer name="horizontalSpacer2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -592,7 +794,7 @@ QPushButton#btnResetSizeViewBase::pressed {
         <property name="minimumSize">
          <size>
           <width>150</width>
-          <height>25</height>
+          <height>27</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -645,68 +847,12 @@ border: 1px solid #3F88CF;
            <x>0</x>
            <y>0</y>
            <width>385</width>
-           <height>288</height>
+           <height>198</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="ZoomLabel" name="labelScaledImg">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <spacer name="horizontalSpacer1">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="5">
-       <spacer name="horizontalSpacer2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="0" colspan="3">
-       <widget class="QScrollArea" name="scrollAreaOriginImg">
-        <property name="styleSheet">
-         <string notr="true">background-color: #cccccc;
-border: 1px solid #3F88CF;</string>
-        </property>
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="scrollAreaOriginImgWidgetContents">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>385</width>
-           <height>288</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
-          <item>
-           <widget class="ZoomLabel" name="labelOriginImg">
             <property name="text">
              <string/>
             </property>
@@ -752,6 +898,62 @@ border: 0px;</string>
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="3" column="2">
+       <spacer name="horizontalSpacer3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0">
+       <spacer name="horizontalSpacer1">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0" colspan="3">
+       <widget class="QScrollArea" name="scrollAreaOriginImg">
+        <property name="styleSheet">
+         <string notr="true">background-color: #cccccc;
+border: 1px solid #3F88CF;</string>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaOriginImgWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>385</width>
+           <height>198</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
+          <item>
+           <widget class="ZoomLabel" name="labelOriginImg">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </item>
      </layout>
     </item>
@@ -892,4 +1094,7 @@ border: 0px;</string>
  </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroupHandRemove"/>
+ </buttongroups>
 </ui>

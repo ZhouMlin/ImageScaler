@@ -49,6 +49,8 @@ private:
     void toolSwitchUIState(bool isEnabled);
     void toolConnectViewLabels();
 
+    void setHandRemoveModel(bool handRemove);
+
 private slots:
     void sltOnPpuTimerOut();
     void sltOnScaledTimerOut();
@@ -68,5 +70,9 @@ private slots:
     void on_btnResetSizeViewBase_clicked(bool checked);
     void on_btnResetSizeViewCompare_clicked(bool checked);
     void on_checkBoxViewSize_toggled(bool checked);
+    void on_checkBoxRemoveByHandCheckbox_toggled(bool checked);
+    void on_btnQuitHandRemove_clicked();
+    void on_radioBtnPen_toggled(bool checked);
+    void on_radioBtnEraser_toggled(bool checked);
 };
 #endif // MAINWINDOW_H

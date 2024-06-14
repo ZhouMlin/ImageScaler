@@ -1,5 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "src/zoomlabel.h"
 
 #include <QFileDialog>
 #include <QPixmap>
@@ -42,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btnResetSizeViewBase->setHidden(true);
     ui->btnResetSizeViewCompare->setHidden(true);
     toolConnectViewLabels();
+
+    setHandRemoveModel(false);
 }
 
 MainWindow::~MainWindow()
@@ -224,6 +227,9 @@ void MainWindow::toolSwitchUIState(bool isEnabled)
     ui->spinBoxTolerance->setEnabled(isEnabled);
     ui->spinBoxTolerance->setValue(ui->spinBoxTolerance->minimum());
     ui->btnResetBackground->setEnabled(isEnabled);
+
+    ui->checkBoxViewSize->setEnabled(isEnabled);
+    ui->checkBoxRemoveByHandCheckbox->setEnabled(isEnabled);
 }
 
 void MainWindow::toolConnectViewLabels()
@@ -246,6 +252,19 @@ void MainWindow::toolConnectViewLabels()
             ui->btnResetSizeViewCompare->setHidden(false);
         }
     });
+}
+
+void MainWindow::setHandRemoveModel(bool handRemove)
+{
+    // 图片手动去背景设置
+    ui->gridFrameHandRemove->setHidden(!handRemove);
+    ui->frameConfiguration->setHidden(handRemove);
+    ui->labelScaledImg->setHandRemoveBackground(handRemove);
+
+    if (!handRemove)
+    {
+        ui->labelScaledImg->setPenModel(PenModel::UNKNOWN);
+    }
 }
 
 void MainWindow::sltOnPpuTimerOut()
@@ -392,6 +411,7 @@ void MainWindow::on_actionBrowse_triggered()
     ui->btnResetSizeViewBase->setHidden(true);
     ui->btnResetSizeViewCompare->setHidden(true);
 
+    ui->checkBoxRemoveByHandCheckbox->setChecked(false);
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -483,4 +503,37 @@ void MainWindow::on_checkBoxViewSize_toggled(bool checked)
         disconnect(ui->labelOriginImg, &ZoomLabel::sigScaled, nullptr, nullptr);
         disconnect(ui->labelScaledImg, &ZoomLabel::sigScaled, nullptr, nullptr);
     }
+}
+
+void MainWindow::on_checkBoxRemoveByHandCheckbox_toggled(bool checked)
+{
+    setHandRemoveModel(checked);
+}
+
+void MainWindow::on_btnQuitHandRemove_clicked()
+{
+    ui->checkBoxRemoveByHandCheckbox->setChecked(false);
+
+    ui->radioBtnPen->setChecked(false);
+    ui->radioBtnEraser->setChecked(false);
+}
+
+void MainWindow::on_radioBtnPen_toggled(bool checked)
+{
+    if (!checked)
+    {
+        return;
+    }
+
+    ui->labelScaledImg->setPenModel(PenModel::PEN);
+}
+
+void MainWindow::on_radioBtnEraser_toggled(bool checked)
+{
+    if (!checked)
+    {
+        return;
+    }
+
+    ui->labelScaledImg->setPenModel(PenModel::ERASE);
 }
