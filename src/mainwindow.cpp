@@ -37,6 +37,11 @@ MainWindow::MainWindow(QWidget *parent)
     toolSwitchUIState(false);
 
     toolSetStyleSheetFile(":/style.qss");
+
+    // 对图片缩放设置
+    ui->btnResetSizeViewBase->setHidden(true);
+    ui->btnResetSizeViewCompare->setHidden(true);
+    toolConnectViewLabels();
 }
 
 MainWindow::~MainWindow()
@@ -221,6 +226,28 @@ void MainWindow::toolSwitchUIState(bool isEnabled)
     ui->btnResetBackground->setEnabled(isEnabled);
 }
 
+void MainWindow::toolConnectViewLabels()
+{
+    connect(ui->labelOriginImg, &ZoomLabel::sigScaled,
+            [this](double scaleFactor)
+    {
+        ui->labelScaledImg->scaledPixmap(scaleFactor);
+        if (!ui->btnResetSizeViewBase->isVisible())
+        {
+            ui->btnResetSizeViewBase->setHidden(false);
+        }
+    });
+    connect(ui->labelScaledImg, &ZoomLabel::sigScaled,
+            [this](double scaleFactor)
+    {
+        ui->labelOriginImg->scaledPixmap(scaleFactor);
+        if (!ui->btnResetSizeViewCompare->isVisible())
+        {
+            ui->btnResetSizeViewCompare->setHidden(false);
+        }
+    });
+}
+
 void MainWindow::sltOnPpuTimerOut()
 {
     std::shared_ptr<QImage> pixeImage = convertToPixelImg(m_originImage, ui->spinBoxPPU->value());
@@ -361,6 +388,10 @@ void MainWindow::on_actionBrowse_triggered()
     }
     m_statusLabel->setText(QString::fromLocal8Bit("原始图像尺寸：%1 * %2").arg(m_originImage->width())
                            .arg(m_originImage->height()));
+
+    ui->btnResetSizeViewBase->setHidden(true);
+    ui->btnResetSizeViewCompare->setHidden(true);
+
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -383,6 +414,9 @@ void MainWindow::on_actionSave_triggered()
 void MainWindow::on_btnResetSize_clicked(bool checked)
 {
     Q_UNUSED(checked);
+
+    ui->spinBoxWidth->setValue(0);
+    ui->spinBoxHeight->setValue(0);
 
     ui->spinBoxWidth->setValue(m_originImage->width());
     ui->spinBoxHeight->setValue(m_originImage->height());
@@ -422,4 +456,31 @@ void MainWindow::on_checkBoxLockAspectRatio_toggled(bool checked)
 //        ui->spinBoxWidth->setMinimum(0);
 //        ui->spinBoxHeight->setMinimum(0);
 //    }
+}
+
+void MainWindow::on_btnResetSizeViewBase_clicked(bool checked)
+{
+    Q_UNUSED(checked);
+
+    ui->labelOriginImg->scaledPixmap(1);
+}
+
+void MainWindow::on_btnResetSizeViewCompare_clicked(bool checked)
+{
+    Q_UNUSED(checked);
+
+    ui->labelScaledImg->scaledPixmap(1);
+}
+
+void MainWindow::on_checkBoxViewSize_toggled(bool checked)
+{
+    if (checked)
+    {
+        toolConnectViewLabels();
+    }
+    else
+    {
+        disconnect(ui->labelOriginImg, &ZoomLabel::sigScaled, nullptr, nullptr);
+        disconnect(ui->labelScaledImg, &ZoomLabel::sigScaled, nullptr, nullptr);
+    }
 }

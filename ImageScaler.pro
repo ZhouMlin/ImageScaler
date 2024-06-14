@@ -17,10 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/zoomlabel.cpp
 
 HEADERS += \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/zoomlabel.h
 
 FORMS += \
     src/mainwindow.ui

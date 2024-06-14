@@ -47,6 +47,7 @@ private:
 
     void toolSetStyleSheetFile(const QString &file);
     void toolSwitchUIState(bool isEnabled);
+    void toolConnectViewLabels();
 
 private slots:
     void sltOnPpuTimerOut();
@@ -64,5 +65,8 @@ private slots:
     void on_spinBoxTolerance_valueChanged(int arg1);
     void on_sliderPPU_valueChanged(int value);
     void on_checkBoxLockAspectRatio_toggled(bool checked);
+    void on_btnResetSizeViewBase_clicked(bool checked);
+    void on_btnResetSizeViewCompare_clicked(bool checked);
+    void on_checkBoxViewSize_toggled(bool checked);
 };
 #endif // MAINWINDOW_H

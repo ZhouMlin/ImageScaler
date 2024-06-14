@@ -24,7 +24,7 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QFrame" name="frameConfiguration">
       <property name="styleSheet">
@@ -519,38 +519,117 @@ border: 0px;</string>
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayoutImg" stretch="1,1">
-      <item>
-       <widget class="QScrollArea" name="scrollAreaOriginImg">
+     <layout class="QGridLayout" name="gridLayoutScrollArea" columnstretch="1,1,1,1,1,1">
+      <item row="3" column="2">
+       <spacer name="horizontalSpacer3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="3">
+       <spacer name="horizontalSpacer4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btnResetSizeViewBase">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="styleSheet">
-         <string notr="true">background-color: #cccccc;
-border: 1px solid #3F88CF;</string>
+         <string notr="true">QPushButton#btnResetSizeViewBase {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnResetSizeViewBase::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnResetSizeViewBase::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
         </property>
-        <property name="widgetResizable">
-         <bool>true</bool>
+        <property name="text">
+         <string>恢复（显示尺寸）</string>
         </property>
-        <widget class="QWidget" name="scrollAreaOriginImgWidgetContents">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>385</width>
-           <height>347</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1">
-          <item>
-           <widget class="QLabel" name="labelOriginImg">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
        </widget>
       </item>
-      <item>
+      <item row="3" column="4">
+       <widget class="QPushButton" name="btnResetSizeViewCompare">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton#btnResetSizeViewCompare {
+	background-color: #FFFFFF;
+	color: #3F88CF;
+	font-family: Microsoft YaHei;
+	font-weight: normal;
+	font-size: 12px;
+	min-height: 25px;
+	border: 1px solid #3F88CF;
+	border-radius: 5px;
+}
+
+QPushButton#btnResetSizeViewCompare::disabled {
+	background-color: #FFFFFF;
+	color: #cccccc;
+	border: 1px solid #cccccc;
+}
+
+QPushButton#btnResetSizeViewCompare::pressed {
+	background-color: #3F88CF;
+	color: #FFFFFF;
+}</string>
+        </property>
+        <property name="text">
+         <string>恢复（显示尺寸）</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" colspan="3">
        <widget class="QScrollArea" name="scrollAreaScaledImg">
         <property name="styleSheet">
          <string notr="true">background-color: #cccccc;
@@ -566,12 +645,12 @@ border: 1px solid #3F88CF;
            <x>0</x>
            <y>0</y>
            <width>385</width>
-           <height>347</height>
+           <height>288</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLabel" name="labelScaledImg">
+           <widget class="ZoomLabel" name="labelScaledImg">
             <property name="text">
              <string/>
             </property>
@@ -580,6 +659,99 @@ border: 1px solid #3F88CF;
          </layout>
         </widget>
        </widget>
+      </item>
+      <item row="3" column="0">
+       <spacer name="horizontalSpacer1">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="5">
+       <spacer name="horizontalSpacer2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0" colspan="3">
+       <widget class="QScrollArea" name="scrollAreaOriginImg">
+        <property name="styleSheet">
+         <string notr="true">background-color: #cccccc;
+border: 1px solid #3F88CF;</string>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaOriginImgWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>385</width>
+           <height>288</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
+          <item>
+           <widget class="ZoomLabel" name="labelOriginImg">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="6">
+       <layout class="QHBoxLayout" name="horizontalLayoutLabelImgCheckbox">
+        <item>
+         <spacer name="horizontalSpacer5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxViewSize">
+          <property name="styleSheet">
+           <string notr="true">background-color: #FFFFFF;
+color: #3F88CF;
+font-family: Microsoft YaHei;
+font-weight: normal;
+font-size: 12px;
+min-height: 10px;
+min-width: 30px;
+border: 0px;</string>
+          </property>
+          <property name="text">
+           <string>同步显示尺寸</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -711,6 +883,13 @@ border: 0px;</string>
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ZoomLabel</class>
+   <extends>QLabel</extends>
+   <header>src/zoomlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
